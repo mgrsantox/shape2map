@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shape2Map</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <style>
+    	#map{
+    		height: 600px;
+        	width: 100%; /*1000px;*/
+        	position: relative;
+        	flex-grow: 1;
+        	border-radius: 10px;
+        	transition: .5s linear;
+        	-moz-transition: .5s linear;
+        	-webkit-transition: .5s linear;
+        	-o-transition: .5s linear;
+      }
+    	.btn{
+    		color: black;
+    	}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="{% url 'index' %}">Shape2Map</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://santoshrana.com.np" target="_blank"> -by Santosh Magar [file need:".dbf",".prj",".sbn",".sbx",".shp",".shp.xml",".shx"]<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" id="shape-form" url="{% url 'index' %}" method="POST" enctype="multipart/form-data">
+                <input type="file" id="shapefile" class="form-control" name="shpefile" multiple>
+                <input type="submit" id="load" class="btn btn-success btn-outline-success my-2 my-sm-0" value="Load All Related Files">
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <div id="map"></div>
+    </div>
+    {% comment %}
+    data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script>
+    $(document).ready(function() {
+        var map = L.map('map', {
+            scrollWheelZoom: true,
+            touchZoom: false,
+            doubleClickZoom: false,
+            zoomControl: true,
+            dragging: true
+        }).setView([28.509578281616406, 81.1062240600586], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Santosh Magar | OpenStreetMap</a> contributors'
+        }).addTo(map);
+        $("#load").off('click');
+        $("#load").click(function(e) {
+            e.preventDefault();
+            var data = new FormData();
+            $.each($("#shapefile")[0].files, function(i, file) {
+                data.append("files", file);
+            });
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            $.ajax({
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'post',
+                beforeSend: function() {
+                    // before send, display loading, etc...
+                },
+                success: function(data) {
+                    var geodata = JSON.parse(data)
+                    L.geoJson(geodata).addTo(map);
+                },
+                error: function() {
+                    // error handling... 
+                }
+            });
+        })
+
+    });
+    </script>
+</body>
+
+</html>
