@@ -33,12 +33,14 @@ class Index(View):
 
     def post(self, request, *args, **kwargs):
         files = request.FILES.getlist('files')
+        if files:
+            shutil.rmtree(os.path.join(settings.MEDIA_ROOT))
         fs = FileSystemStorage()
         shp_file = ''
         for f in files:
             file = fs.save(f.name, f)
             file_url = os.path.join(settings.MEDIA_ROOT, file)
-            if '.shp' in file_url:
+            if file_url.endswith(".shp"):
                 shp_file = file_url
         data = shapeConv(shp_file)
         if data:
