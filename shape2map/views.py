@@ -33,8 +33,10 @@ class Index(View):
 
     def post(self, request, *args, **kwargs):
         files = request.FILES.getlist('files')
-        if files:
+        try:
             shutil.rmtree(os.path.join(settings.MEDIA_ROOT))
+        except Exception:
+            pass
         fs = FileSystemStorage()
         shp_file = ''
         for f in files:
