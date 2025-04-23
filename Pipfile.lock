@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a9eca4c1533ba7cf7d4d0229fd20a0fdd203723298b9287df5564ababd52cb69"
+            "sha256": "d0042526f3c3f7619bfed73147cefaaa290a68e1dfbf326321a5077e8a3f5030"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -48,12 +48,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:3a93350214ba25f178d4045c0786c61573e7dbfa3c509b3551374f1e11ba8de0",
-                "sha256:6b56d834cc94c8b21a8f4e775064896be3b4a4ca387f2612d4406a5927cd2fdc"
+                "sha256:213381b6e4405f5c8703fffc29cd719efdf189dec60c67c04f76272b3dc845b9",
+                "sha256:92bac5b4432a64532abb73b2ac27203f485e40225d2640a7fbef2b62b876e789"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.2.17"
+            "version": "==4.2.20"
         },
         "geojson-rewind": {
             "hashes": [
@@ -79,19 +79,19 @@
         },
         "sqlparse": {
             "hashes": [
-                "sha256:9e37b35e16d1cc652a2545f0997c1deb23ea28fa1f3eefe609eee3063c3b105f",
-                "sha256:e99bc85c78160918c3e1d9230834ab8d80fc06c59d03f8db2618f65f65dda55e"
+                "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272",
+                "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==0.5.2"
+            "version": "==0.5.3"
         },
         "typing-extensions": {
             "hashes": [
-                "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d",
-                "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"
+                "sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c",
+                "sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef"
             ],
-            "markers": "python_version < '3.11'",
-            "version": "==4.12.2"
+            "markers": "python_version >= '3.8'",
+            "version": "==4.13.2"
         }
     },
     "develop": {}
